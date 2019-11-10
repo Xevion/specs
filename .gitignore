@@ -1,6 +1,9 @@
 # Repository Specific files/folders
 /specs/data/**
 
+# Temporary Files {REMOVE IN FINAL RELEASE(S)}
+main.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
