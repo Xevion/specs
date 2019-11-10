@@ -5,6 +5,7 @@ import platform
 import shutil
 
 from . import log
+from .app import WindowsSpecs, LinuxSpecs
 
 log.info('')
 
@@ -21,11 +22,20 @@ def collect():
         if not shutil.which('msinfo32'):
             log.critical('msinfo32 not detected in path')
             raise click.ClickException('msinfo32 not detected in path - override to use linux OS specs detection via --linux')
-        print(
-            f'{key} : {value}' for key, value in {
-                'Motherboard' : 
-            }
+        model = WindowsSpecs()
+        output = """::: {} Specs :::
+                'Motherboard' : {motherboard},
+                'Processor' : {cpu},
+                'Graphics Card' : {gpu},
+                'Drives' : {disks}
+                """
+        output = output.format(
+            motherboard=model.mobo,
+            cpu=model.cpu,
+            gpu=model.gpu,
+            disks=model.disks
         )
+        print(output)
     else:
-        log.critical(f'Unspported Platform \"{systype}\/{sysname}" detected, failing')
+        log.critical(f'Unsupported Platform \"{systype}\/{sysname}" detected, failing')
         return
